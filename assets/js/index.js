@@ -1,4 +1,18 @@
 $(function(){
+    updateInfo()
+    
+    
+    var layer = layui.layer
+    $('.tuchu').on('click',function(){
+        layer.confirm('是否退出登录?', {icon: 3, title:'提示'}, function(index){
+            //do something
+            localStorage.removeItem('token')
+            location.href='/login.html'
+            layer.close(index);
+          });
+    })
+})
+function updateInfo(){
     $.ajax({
         method:'get',
         url:'/my/userinfo',
@@ -19,17 +33,7 @@ $(function(){
         //     }
         //   }
     })
-    var layer = layui.layer
-    $('.tuchu').on('click',function(){
-        layer.confirm('是否退出登录?', {icon: 3, title:'提示'}, function(index){
-            //do something
-            localStorage.removeItem('token')
-            location.href='/login.html'
-            layer.close(index);
-          });
-    })
-})
-
+}
 function getUserInfo(data){
     var username = data.nickname || data.username
     $('.username').html(username)
